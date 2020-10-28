@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 开启注解注入（使用注解注入得先开启这个）-->
+    <context:component-scan base-package="com.peng.spring" />
+
+    <!-- spring 给创建对象 -->
+    <!-- spring 核心配置文件 -->
+
+    <!-- XML 注册-->
+    <!--
+        scope   默认所有的对象都是单例（singleton）  prototype 创建普通对象
+        init-method 初始化方法（构造方法执行完成之后自动执行的第一格方法）
+        destroy-method 方法即将被回收（必须使用到close时才会执行到这个属性）
+        lazy-init 懒加载
+
+    -->
+
+
+    <bean id="user" class="com.peng.spring.bean.User"
+          scope="singleton" init-method="init" destroy-method="destroy" lazy-init="true">
+
+        <!--
+            子元素：property
+                    name/id 属性的名称（一般使用name，只能使用一个）
+                    value   基本类型
+                    ref     指向容器的另一个对象
+        -->
+
+        <!-- 可以是赋值 -->
+     <!--
+        <property name="list">
+            <list>
+                <value>1</value>
+                <value>2</value>
+            </list>
+        </property>
+     -->
+        <!-- 也可以是指向对象（就是下面的<p:list id="list">里面的id就是ref值）-->
+        <property name="list" ref="list" />
+        <p:list id="list">
+            <value>111</value>
+        </p:list>
+
+        <!-- 可以是赋值 -->
+    <!--
+        <property name="map">
+            <map>
+                <entry key="1" value="呵呵" />
+            </map>
+        </property>
+    -->
+        <!-- 也可以是指向对象 -->
+        <property name="map" ref="map" />
+
+    </bean>
+
+    <bean id="address" class="com.peng.spring.bean.Address"></bean>
+
+
+</beans>
